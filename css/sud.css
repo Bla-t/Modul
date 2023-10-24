@@ -1,0 +1,22 @@
+
+h2{
+		color: #C2612A;
+	}
+label{
+	color: yellow;
+}
+.scroll,.scroll1{
+		height: 370px !important;
+		overflow: auto;
+	}
+.container-fluid{
+	margin-top: 40px;
+}
+.ase {
+		display: none;
+		}
+
+.scrol{
+	height: 340px !important;
+	overflow: auto;
+}

@@ -1,0 +1,240 @@
+
+/*function numberTowords($num)
+{
+
+  $ones = array(
+    0 => "Nol",
+    1 => "Satu",
+    2 => "Dua",
+    3 => "Tiga",
+    4 => "Empat",
+    5 => "Lima",
+    6 => "Enam",
+    7 => "Tujuh",
+    8 => "Delapan",
+    9 => "Sembilan",
+    10 => "Sepuluh",
+    11 => "Sebelas",
+    12 => "Duabelas",
+    13 => "Tigabelas",
+    14 => "Empatbelas",
+    15 => "Limabelas",
+    16 => "Enambelas",
+    17 => "Tujuhbelas",
+    18 => "Delapanbelas",
+    19 => "Sembilanbelas",
+    "014" => "Empatbelas"
+  );
+  $tens = array(
+    0 => "Nol",
+    1 => "Sepuluh",
+    2 => "Dua Puluh",
+    3 => "Tiga Puluh",
+    4 => "Empat Puluh",
+    5 => "Lima Puluh",
+    6 => "Enam Puluh",
+    7 => "Tujuh Puluh",
+    8 => "Delapan Puluh",
+    9 => "Sembilan Puluh"
+  );
+  $hundreds = array(
+    "Ratus",
+    "Ribu",
+    "Juta",
+    "Milyar",
+    "Triliun",
+    //"QUARDRILLION"
+  );
+  //limit t quadrillion 
+  $num = number_format($num, 2, ".", ",");
+  $num_arr = explode(".", $num);
+  $wholenum = $num_arr[0];
+  $decnum = $num_arr[1];
+  $whole_arr = array_reverse(explode(",", $wholenum));
+  krsort($whole_arr, 1);
+  $rettxt = "";
+  foreach ($whole_arr as $key => $i) {
+
+    while (substr($i, 0, 1) == "0")
+      $i = substr($i, 1, 5);
+    if ($i < 20) {
+
+      /* echo "getting:".$i;
+      
+      $rettxt .= $ones[$i];
+    } elseif ($i < 100) {
+      if (substr($i, 0, 1) != "0")  $rettxt .= $tens[substr($i, 0, 1)];
+      if (substr($i, 1, 1) != "0") $rettxt .= " " . $ones[substr($i, 1, 1)];
+    } else {
+      if (substr($i, 0, 1) != "0") $rettxt .= $ones[substr($i, 0, 1)] . " " . $hundreds[0];
+      if (substr($i, 1, 1) != "0") $rettxt .= " " . $tens[substr($i, 1, 1)];
+      if (substr($i, 2, 1) != "0") $rettxt .= " " . $ones[substr($i, 2, 1)];
+    }
+    if ($key > 0) {
+      $rettxt .= " " . $hundreds[$key] . " ";
+    }
+  }
+  if ($decnum > 0) {
+    $rettxt .= " ";
+    if ($decnum < 20) {
+      $rettxt .= $ones[$decnum];
+    } elseif ($decnum < 100) {
+      $rettxt .= $tens[substr($decnum, 0, 1)];
+      $rettxt .= " " . $ones[substr($decnum, 1, 1)];
+    }
+  }
+  return $rettxt . "Rupiah";
+}
+extract($_POST);
+if (isset($convert)) {
+  $haiy = numberTowords("$num");
+}*/
+
+
+
+//// cek lancar nggak
+
+//jika um naik /tidak
+/*if ($interval_um == $date) {
+  $bb = 'um naik';
+} elseif ($msakerja == 0) {
+  $bb = 'baru';
+} else {
+  $bb = 'um tetap';
+}
+//jika gaji naik / tidak
+if ($msakerja == '0') {
+  //$a =;
+  $aa = ' selamat bergabung';
+} elseif ($msakerja > $mskrj) {
+  $aa = ' gaji naik ' . $msakerja . 'tahun';
+} else {
+  //$a = $nilgaji['tonase'] + $ambilgaji['tunjangan'];
+  $aa = ' gaji tetap';
+}*/
+
+
+////mbuhh
+
+/*if ($masa == 0) {
+  $um = 45000;
+  $gaji = $gj_naik + 850000 + $kode_alam[$kojab];
+  $output = "Masa Kerja " . $masa . " Tahun, selamat bergabung..!!<br> gaji anda " . rupiah($gaji) . ".<br>dan Uang Makan anda per hari.. " . rupiah($um);
+} else if ($date == $interval) {
+  $um = 6000 + 45000 + $kode_alam2[$kojab];
+  $gaji = $jumlah_masa * $gj_naik + 850000 + $kode_alam[$kojab];
+  $output = "Masa Kerja " . $jumlah_masa . " Tahun, selamat Anda naik gaji " . rupiah($gaji) . "<br> Yang Sebelumnya gaji anda " . rupiah($masa * $gj_naik + 850000 + $kode_alam[$kojab]) . " .<br>Dan Uang Makan anda naik " . rupiah($um) . ' ' . $a;
+} else {
+  $gaji = $masa * $gj_naik + 850000 + $kode_alam[$kojab];
+  $um = 6000 * $masuk + 45000 + $kode_alam2[$kojab];
+  $output = "Masa Kerja " . $masa . " Tahun, Gaji anda Tetap " . rupiah($gaji) . ".<br> dan uang makan " . rupiah($um) . ' ' . $a;
+}*/
+?>
+<!--<!DOCTYPE html>
+<html>
+
+<body>
+  <form method="post">
+    <div class="col">
+      <div class="form-inline d-flex">
+        <h4 class="ml-2 mt-2"></h4>
+      </div>
+    </div>
+    <div class="row">
+      <h2> //$daftar_get['nama'] . ' ' . $kode . '<br>' . rupiah($a) . $aa . '<br>' . rupiah($be) . ' ' . $bb; ?></h2>
+    </div>
+  </form>-->
+<?php
+//include "footer.php";
+
+?>
+<!--</body>
+
+</html>-->
+
+//// smpah index.php
+
+/*if (isset($_POST['coba'])) {
+              $getu = mysqli_fetch_assoc($data);
+            }
+            case is_string($nomb):
+              $data = mysqli_query($conn, "SELECT * FROM `daftar_pegawai` WHERE `nama` ='$nomb' AND `status` NOT LIKE 'tidak'");
+              while ($get = mysqli_fetch_array($data)) {
+              ?>
+                <!-- data form -->
+                <div class="col">
+                  <label for="data">
+                    <h5>Data Karyawan</h5>
+                  </label>
+                  <div class="row" id="data">
+                    <div class="col">
+                      <div class="form-row">
+                        <label for="nama"><strong>Nama :&nbsp;</strong></label>
+                        <p id="nama"> <?= $get['nama'] ?></p>
+                      </div>
+                      <div class="form-row">
+                        <label for="alamat"><strong>alamat :&nbsp;</strong></label>
+                        <p id="alamat"><?= $get['alamat'] ?></p>
+                      </div>
+                      <div class="form-row">
+                        <label for="pddk"><strong>Pendidikan :&nbsp;</strong></label>
+                        <p id="pddk"><?= $get['pddk'] ?></p>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-row">
+                        <label for="nib"><strong>NIB :&nbsp;</strong></label>
+                        <p id="nib"><?= $get['nib'] ?></p>
+                      </div>
+                      <div class="form-row">
+                        <label for="jbt"><strong>Cab/kod/Jab :&nbsp;</strong></label>
+                        <p id="jbt"><?= $get['jbtn'] . "/0" . $get['ko_jbtn'] . "/" . $get['cbg'] ?></p>
+                      </div>
+                      <div class="form-row">
+                        <label for="mkr"><strong>Masa Kerja :&nbsp;</strong></label>
+                        <p id="mkr"><?= $get['ms_krj'] ?> thn</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--input form -->
+                <div class="col">
+                  <label for="potong">
+                    <h5>Potongan | jumlah masuk</h5>
+                  </label>
+                  <div class="row" id="potong">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="bpjs"><strong>pot.BPJS :&nbsp;</strong></label>
+                        <input type="number" id="bpjs" class="form-control form-control-sm fms" required>
+                        <label for="bon"><strong>pot.kas bon :&nbsp;</strong></label>
+                        <input type="text" id="bon" class="form-control form-control-sm fms" required>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="dln"><strong>pot.lain-lain :&nbsp;</strong></label>
+                        <input type="text" id="dln" class="form-control form-control-sm fms" required>
+                        <label for="pendidikan"><strong>jumlah Masuk :&nbsp;</strong></label>
+                        <input type="number" class="form-control form-control-sm fms" required>
+                      </div>
+                      <div class="form-group d-flex">
+                        <a href="#" class="btn btn-primary btn-sm">Cetak</a>
+                        <button type="submit" class="btn btn-success btn-sm ml-1" id="simps">Simpan</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        <?php
+              }
+              $data = mysqli_query($conn, "SELECT `nama`,`NIB` FROM `daftar_pegawai` WHERE `nama` = '$nomb' OR `NIB` = '$nomb' ");
+              $cek = mysqli_fetch_assoc($data);
+              if (empty($cek['nama']) || empty($cek['NIB'])) {
+                echo '<p style="color:#C42D00; font-weight:bold">Data tidak di temukan... !! </p>';
+              }
+              break;*/
+            /*case empty($_POST['index']):
+              echo "isi dulu boss";
+              break;*/
+              
+              //$data = mysqli_query($conn, "SELECT `nama`,`NIB` FROM `daftar_pegawai` WHERE `nama` = '%$nomb%' OR `NIB` = '%$nomb%' ");
