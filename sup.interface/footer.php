@@ -4,6 +4,8 @@
 <script>
   $(document).ready(function() {
 
+    $('#tipe').select2()
+
     //konfirmmer
     $(".hapusakuns, .simpanes, .hilank, .simps, .hils, .del, .delh, .hils, .ceks, .stok, .laps, .haphap").click(function() {
       if (confirm("anda yakin..?")) {

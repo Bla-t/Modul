@@ -1,11 +1,42 @@
 <?php
-session_start();
 if (empty($_SESSION['username']) && empty($_SESSION['pass'])) {
   session_destroy();
-  header('location:../index.php?pesan=gagal&'.$_SESSION['username'].''.$_SESSION['pass']);
+  header("location:../index.php?pesan=gagal");
 } else if ($_SESSION['type'] != "stok" && $_SESSION['type'] != "supus") {
   session_destroy();
   header("location:../index.php?pesan=cit");
+}
+date_default_timezone_set('Asia/Jakarta');
+function tgln($tanggal)
+{
+  $bulan = array(
+    1 =>
+    'Januari',
+    'Februari',
+    'Maret',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember'
+  );
+  $pecahkan = explode('-', $tanggal);
+  // variabel pecahkan 0 = tanggal
+  // variabel pecahkan 1 = bulan
+  // variabel pecahkan 2 = tahun
+
+  return $bulan[(int)$pecahkan[0]];
+}
+
+function rupiah($angka)
+{
+
+  $hasil_rupiah = "Rp." . number_format($angka, 0, ',', '.');
+  return $hasil_rupiah;
 }
 
 /////// LOGIN TIPE ///////////////

@@ -34,14 +34,14 @@ include "header.php";
             <select class="form-control" name="bulan" id="" required>
               <?php
               if (isset($_POST['bulan'])) {
-                echo '<option value="' . date($_POST['bulan']) . '" selected>' . tanggal(date($_POST['bulan'])) . '</option>';
+                echo '<option value="' . date($_POST['bulan']) . '" selected>' . tgln(date($_POST['bulan'])) . '</option>';
               } else {
-                echo '<option value="' . date('m') . '" selected>' . tanggal(date('m')) . '</option>';
+                echo '<option value="' . date('m') . '" selected>' . tgln(date('m')) . '</option>';
               }
               ?>
               <?php
               for ($i = 1; $i <= 12; $i++) {
-                echo '<option value="' . $i . '">' . tanggal(date('m', strtotime($a . '-' . $i))) . '</option></br>';
+                echo '<option value="' . $i . '">' . tgln(date('m', strtotime($a . '-' . $i))) . '</option></br>';
               }
               ?>
             </select>
@@ -108,23 +108,22 @@ include "header.php";
               $isi = mysqli_query($conn, " SELECT * FROM `stok_isipakai` WHERE MONTH(tgl) = '$m' AND YEAR(tgl) = '$a' ORDER BY `tgl` ASC") or die(mysqli_error($conn));
             } else {
               $isi = mysqli_query($conn, " SELECT * FROM `stok_isipakai` WHERE MONTH(tgl) = '$m' AND YEAR(tgl) = '$a' AND `milik`='$milik' ORDER BY `tgl` ASC") or die(mysqli_error($conn));
-            } 
-            
-            ?>
+            } ?>
             <tbody id="table">
               <?php
               while ($data = mysqli_fetch_array($isi)) {
+
               ?>
                 <tr>
-                  <td><?=$n++ . '.'; ?></td>
-                  <td><?= $data['nota']; ?></td>
+                  <td><?php echo $n++ . '.'; ?></td>
+                  <td><?php echo $data['nota']; ?></td>
                   <td><?= $data['kode_barang']; ?></td>
                   <td><?= $data['nama']; ?></td>
-                  <td><?= date('d M, Y', strtotime($data['tgl'])); ?></td>
-                  <td><?= $data['keterangan']; ?></td>
-                  <td><?= $data['acc']; ?></td>
-                  <td><?= $data['jumlah']; ?> Pcs</td>
-                  <td><?= rupiah($data['harga'] * $data['jumlah']); ?></td>
+                  <td><?php echo date('d M, Y', strtotime($data['tgl'])); ?></td>
+                  <td><?php echo $data['keterangan']; ?></td>
+                  <td><?php echo $data['acc']; ?></td>
+                  <td><?php echo $data['jumlah']; ?> Pcs</td>
+                  <td><?php echo rupiah($data['harga']); ?></td>
                 </tr>
               <?php } ?>
               <tr>
@@ -134,7 +133,7 @@ include "header.php";
                 }
                 ?>
                 <td class="font-weight-bold">Total:</td>
-                <td class="font-weight-bold"><?=(empty($has['tot'])) ? rupiah(0) : rupiah($has['tot']); ?></td>
+                <td class="font-weight-bold"><?= rupiah($has['tot']); ?></td>
               </tr>
             </tbody>
           </table>
@@ -200,15 +199,15 @@ include "header.php";
 
               ?>
                 <tr>
-                  <td><?= $n++ . '.'; ?></td>
-                  <td><?= $data['nota']; ?></td>
+                  <td><?php echo $n++ . '.'; ?></td>
+                  <td><?php echo $data['nota']; ?></td>
                   <td><?= $data['kode_barang']; ?></td>
                   <td><?= $data['nama']; ?></td>
-                  <td><?= date('d M, Y', strtotime($data['tgl'])); ?></td>
-                  <td><?= $data['keterangan']; ?></td>
-                  <td><?= $data['acc']; ?></td>
-                  <td><?= $data['jumlah']; ?> Pcs</td>
-                  <td><?= $data['harga']; ?></td>
+                  <td><?php echo date('d M, Y', strtotime($data['tgl'])); ?></td>
+                  <td><?php echo $data['keterangan']; ?></td>
+                  <td><?php echo $data['acc']; ?></td>
+                  <td><?php echo $data['jumlah']; ?> Pcs</td>
+                  <td><?php echo rupiah($data['harga']); ?></td>
                 </tr>
               <?php } ?>
               <tr>
@@ -218,7 +217,7 @@ include "header.php";
                 }
                 ?>
                 <td class="font-weight-bold">Total:</td>
-                <td class="font-weight-bold"><?= $has['tot']; ?></td>
+                <td class="font-weight-bold"><?= rupiah($has['tot']); ?></td>
               </tr>
             </tbody>
           </table>

@@ -19,7 +19,7 @@ $data = mysqli_query($conn, "SELECT * FROM `gaji_laporans` WHERE `kets` = 'y'");
             <?php
             $tnglan = date('Y-d-m');
             ?>
-            <input type="date" class="form-control form-control-sm ml-2" value="<?= $tnglan; ?>" id="tgl" name="per">
+            <input type="date" class="form-control form-control-sm ml-2" value="<?= $tnglan; ?>" id="tgl" name="per" required>
             <button class="btn btn-sm ml-1 btn-primary" name="srch"> cari</button>
           </div>
         </div>

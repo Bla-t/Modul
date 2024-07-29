@@ -44,7 +44,7 @@ else if ($_SESSION['type'] == "stok") {
 					include 'config.php';
 
 					$cet = $_POST['carih'];					
-					$cuy = mysqli_query($conn,"SELECT * FROM `cek_dat` WHERE `nopol` = '$cet'") OR die(mysqli_query($conn));
+					$cuy = mysqli_query($conn,"SELECT * FROM `cek_dat` WHERE `nopol` = '$cet'") OR die(mysqli_error($conn));
 					$get = mysqli_fetch_array($cuy);
 					if(!empty($get['nopol'])){
 				?>

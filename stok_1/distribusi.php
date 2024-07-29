@@ -8,16 +8,17 @@ include "header.php";
 			<form method="POST" action="aksi/aksi_data-barang.php">
 				<?php
 				$not = 'DIS-' . $milik . date('ymd');
-				$query = "SELECT max(nota) AS 'last' FROM `stok_lappakai` WHERE `nota` LIKE '$not%'";
+				$query = "SELECT max(nota) AS last FROM `stok_lappakai` WHERE `nota` LIKE '$not%'";
 				$hasil = mysqli_query($conn, $query);
 				$data  = mysqli_fetch_array($hasil);
-				$lastNoTransaksi = strval($data['last']);
+				
+				($data['last'] > 0) ? $lastNoTransaksi = $data['last'] : $lastNoTransaksi = $not.'-0000' ;
 
 				// baca nomor urut transaksi dari id transaksi terakhir	
 				$lastNoUrut = substr($lastNoTransaksi, 14, 4);
 
 				// nomor urut ditambah 1
-				$nextNoUrut = intval($lastNoUrut) + 1;
+				$nextNoUrut = $lastNoUrut + 1;
 
 				// membuat format nomor transaksi berikutnya
 				$next = sprintf('%04s', $nextNoUrut);

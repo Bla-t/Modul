@@ -1,8 +1,35 @@
 <?php
 include "header.php";
+function tgl($tanggal)
+{
+	$bulan = array(
+		1 =>
+		'Januari',
+		'Februari',
+		'Maret',
+		'April',
+		'Mei',
+		'Juni',
+		'Juli',
+		'Agustus',
+		'September',
+		'Oktober',
+		'November',
+		'Desember'
+	);
+	$pecahkan = explode('-', $tanggal);
+	// variabel pecahkan 0 = tanggal
+	// variabel pecahkan 1 = bulan
+	// variabel pecahkan 2 = tahun
+
+	return $bulan[(int)$pecahkan[0]];
+}
+
+//////////////////////////
+
 $bu = date('m');
 $ta = date('Y');
-$tgltext = tanggal(date('m', strtotime($ta . '-' . $bu)));
+$tgltext = tgl(date('m', strtotime($ta . '-' . $bu)));
 if ($level == "sudo") {
 	$jumlah = mysqli_query($conn, "SELECT SUM(stok) AS 'jum' FROM `stok_databarang`") or die(mysqli_error($conn));
 } else {
@@ -26,7 +53,7 @@ $tot_databarang = mysqli_fetch_assoc($jumlah);
 				<i class='bx bx-box dash-icon'></i>
 				<div class="card-text">
 					<h3>stok</h3>
-					<h4><?= $jum . ', Pcs'; ?></h4>
+					<h4><?php echo $jum . ', Pcs'; ?></h4>
 				</div>
 			</div>
 			<div class="card-footer text-dark font-weight-bold">
@@ -42,11 +69,16 @@ $tot_databarang = mysqli_fetch_assoc($jumlah);
 				<div>
 					<?php
 					if ($level == "sudo") {
-						$total_keluar = mysqli_query($conn, "SELECT SUM(`harga`) AS 'total_pakai' FROM `stok_isipakai` WHERE MONTH(tgl) = '$bu' AND YEAR(tgl) = '$ta'") or die(mysqli_error($conn));
+						$query = "SELECT SUM(`harga`) AS 'total_pakai' FROM `stok_isipakai` WHERE MONTH(tgl) = '$bu' AND YEAR(tgl) = '$ta'";
 					} else {
-						$total_keluar = mysqli_query($conn, "SELECT SUM(`harga`) AS 'total_pakai' FROM `stok_isipakai` WHERE MONTH(tgl) = '$bu' AND YEAR(tgl) = '$ta' AND `milik` = '$milik'") or die(mysqli_error($conn));
+						$query = "SELECT SUM(`harga`) AS 'total_pakai' FROM `stok_isipakai` WHERE MONTH(tgl) = '$bu' AND YEAR(tgl) = '$ta' AND `milik` = '$milik'";
 					}
-					$total_distribusi = mysqli_fetch_assoc($total_keluar);
+
+					$jumlah_pemakaian = mysqli_query($conn, $query) or die(mysqli_error($conn));
+					$total_distribusi = mysqli_fetch_assoc($jumlah_pemakaian);
+
+					(empty($total_distribusi['total_pakai']))? $omset_distribusi = 0 : $omset_distribusi = $total_distribusi['total_pakai'];
+
 					?>
 					<h3><?php
 							if ($milik == "ARM") {
@@ -55,7 +87,8 @@ $tot_databarang = mysqli_fetch_assoc($jumlah);
 								echo 'Distribusi';
 							}
 							?></h3>
-					<h4><?= (empty($total_distribusi['total_pakai'])) ? rupiah(0) : rupiah($total_distribusi['total_pakai']) ;?></h4>
+					<h4><?= rupiah($omset_distribusi);
+							?></h4>
 				</div>
 			</div>
 			<div class="card-footer text-dark font-weight-bold">
@@ -72,14 +105,16 @@ $tot_databarang = mysqli_fetch_assoc($jumlah);
 				<div>
 					<?php
 					if ($level == "sudo") {
-						$jumlah_pembelian = mysqli_query($conn, "SELECT SUM(`total`) AS 'total_beli' FROM `stok_isibeli` WHERE MONTH(tgl) = '$bu' AND YEAR(tgl) = '$ta'") or die(mysqli_error($conn));
+						$query_pembelian = "SELECT SUM(total) AS 'total_beli' FROM `stok_isibeli`n WHERE MONTH(tgl) = '$bu' AND YEAR(tgl) = '$ta'";
 					} else {
-						$jumlah_pembelian = mysqli_query($conn, "SELECT SUM(`total`) AS 'total_beli' FROM `stok_isibeli` WHERE MONTH(tgl) = '$bu' AND YEAR(tgl) = '$ta' AND `milik` = '$milik'") or die(mysqli_error($conn));
+						$query_pembelian = "SELECT SUM(total) AS 'total_beli' FROM `stok_isibeli` WHERE MONTH(tgl) = '$bu' AND YEAR(tgl) = '$ta' AND `milik` = '$milik'";
 					}
+					$jumlah_pembelian = mysqli_query($conn, $query_pembelian) or die(mysqli_error($conn));
 					$ketbeli = mysqli_fetch_assoc($jumlah_pembelian);
-					?>
+					(empty($ketbeli['total_beli']))? $omset_beli = 0 : $omset_beli = $ketbeli['total_beli'];
+					?>					
 					<h3>Pembelian</h3>
-					<h4><?= (empty($ketbeli['total_beli'])) ? rupiah(0) : rupiah($ketbeli['total_beli']); ?></h4>
+					<h4><?= rupiah($omset_beli); ?></h4>
 				</div>
 			</div>
 			<div class="card-footer text-dark font-weight-bold">
@@ -110,7 +145,6 @@ $tot_databarang = mysqli_fetch_assoc($jumlah);
 		</a>
 	</div> -->
 </div>
-
 <?php
 if ($level == "sudo") {
 	$TOT = mysqli_query($conn, "SELECT COUNT(id_barang) AS 'tot' FROM `stok_databarang` ORDER BY `milik` ASC");
@@ -121,7 +155,7 @@ $has = mysqli_fetch_assoc($TOT);
 ?>
 <section class="recent">
 	<div class="activity-card">
-		<h3>DAFTAR STOK "<?= $has['tot']; ?>" ITEM</h3>
+		<h3>DAFTAR STOK "<?php echo $has['tot']; ?>" ITEM</h3>
 		<div class="col-md-5">
 			<div class="input-group mb-3">
 				<input type="text" class="form-control" id="input" placeholder="cari item">
@@ -167,13 +201,13 @@ $has = mysqli_fetch_assoc($TOT);
 
 					?>
 						<tr>
-							<td><?= $n++ . '.'; ?></td>
-							<td><?= $data['id_barang']; ?></td>
-							<td><?= $data['nama_barang']; ?></td>
-							<td><?= $data['merk'] ?></td>
-							<td><?= $data['kategori']; ?></td>
-							<td><?= rupiah($data['harga_beli']); ?></td>
-							<td><?= $data['stok']; ?> pcs</td>
+							<td><?php echo $n++ . '.'; ?></td>
+							<td><?php echo $data['id_barang']; ?></td>
+							<td><?php echo $data['nama_barang']; ?></td>
+							<td><?php echo $data['merk'] ?></td>
+							<td><?php echo $data['kategori']; ?></td>
+							<td><?php echo rupiah($data['harga_beli']); ?></td>
+							<td><?php echo $data['stok']; ?> pcs</td>
 							<?php
 							if ($level == "sudo") {
 								echo '<td>' . $data['milik'] . '</td>';
@@ -195,7 +229,7 @@ $has = mysqli_fetch_assoc($TOT);
 		<div class="summary-card">
 			<div class="card-body">
 				<button class="btn btn-info print" onclick="PrintDiv();" id="print"><i class='bx bxs-printer'> Print</i></button>
-				<!-- <a href="aksi/excel.php?extr=DBR&tgl=<?= tanggal(date('d,m, Y')); ?>&tipe =<?= $milik; ?>" class="btn btn-secondary" id="import"><span class="ti-import"></span> Import</a> -->
+				<!-- <a href="aksi/excel.php?extr=DBR&tgl=<?= tgl(date('d,m, Y')); ?>&tipe =<?= $milik; ?>" class="btn btn-secondary" id="import"><span class="ti-import"></span> Import</a> -->
 			</div>
 		</div>
 	</div>

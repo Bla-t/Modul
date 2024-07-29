@@ -27,14 +27,14 @@ include "header.php";
                         <select class="form-control" name="bulan" id="" required>
                             <?php
                             if (isset($_POST['bulan'])) {
-                                echo '<option value="' . date('m') . '" selected>' . tanggal(date($_POST['bulan'])) . '</option>';
+                                echo '<option value="' . date('m') . '" selected>' . tgln(date($_POST['bulan'])) . '</option>';
                             } else {
-                                echo '<option value="' . date('m') . '" selected>' . tanggal(date('m')) . '</option>';
+                                echo '<option value="' . date('m') . '" selected>' . tgln(date('m')) . '</option>';
                             }
                             ?>
                             <?php
                             for ($bln = 1; $bln <= 12; $bln++) {
-                                echo '<option value="' . $bln . '">' . tanggal(date('m', strtotime($a . '-' . $bln))) . '</option></br>';
+                                echo '<option value="' . $bln . '">' . tgln(date('m', strtotime($a . '-' . $bln))) . '</option></br>';
                             }
                             ?>
                         </select>

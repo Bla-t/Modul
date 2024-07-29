@@ -1,42 +1,33 @@
 <?php
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
-include "../config.php";
-include "session.php";
+include "config.php";
 session_start();
-
-date_default_timezone_set('Asia/Jakarta');
+include "session.php";
 function tanggal($tanggal)
 {
-  $bulan = array(
-    1 =>
-    'Januari',
-    'Februari',
-    'Maret',
-    'April',
-    'Mei',
-    'Juni',
-    'Juli',
-    'Agustus',
-    'September',
-    'Oktober',
-    'November',
-    'Desember'
-  );
+	$bulan = array(
+		1 =>
+		'Jan',
+		'Feb',
+		'Mar',
+		'Apr',
+		'Mei',
+		'Juni',
+		'Juli',
+		'Agus',
+		'Sept',
+		'Okt',
+		'Nov',
+		'Des'
+	);
+	$pecahkan = explode('-', $tanggal);
 
-  $pecahkan = explode('-', $tanggal);
-  // variabel pecahkan 0 = tanggal
-  // variabel pecahkan 1 = bulan
-  // variabel pecahkan 2 = tahun
+	// variabel pecahkan 0 = tanggal
+	// variabel pecahkan 1 = bulan
+	// variabel pecahkan 2 = tahun
 
-  return $bulan[(int)$pecahkan[0]];
+	return $pecahkan[2] . ', ' . $bulan[(int)$pecahkan[1]] . ' ' . $pecahkan[0];
 }
-
-function rupiah($angka){
-  (empty($angka)) ? 0 : $angka;
-  $hasil_rupiah = "Rp. " . number_format($angka, 0, ',', '.');
-  return $hasil_rupiah;
-}
-
 ?>
 
 <head>
@@ -54,6 +45,7 @@ function rupiah($angka){
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
+	<!-- <link rel="stylesheet" href="sttyle.css"> -->
 	<link rel="stylesheet" type="text/css" href="sttyle.css">
 </head>
 <div class="sidebar closed">
@@ -120,9 +112,28 @@ function rupiah($angka){
 				<li><a class="link_name" href="lap_pemakaian.php">LAP.DISTRIBUSI</a></li>
 			</ul>
 		</li>
+		<!--<li>
+			<a href="dat_brg_serv.php">
+				<i class='bx bxs-cog'></i>
+				<span class="link_name">SERVIS</span>
+			</a>
+			<ul class="sub-menu blank">
+				<li><a class="link_name" href="dat_brg_serv.php">SERVIS</a></li>
+			</ul>
+		</li>
+		<li>
+			<a href="caridat.php">
+				<i class='bx bx-file-find'></i>
+				<span class="link_name">CARI</span>
+			</a>
+			<ul class="sub-menu blank">
+				<li><a class="link_name" href="caridat.php">CARI</a></li>
+			</ul>
+		</li>-->
 		<li>
 			<div class="iocn-link">
 				<a href="#">
+					<!-- <i class='bx bx-cog'></i> -->
 					<i class='bx bxs-user-detail'></i>
 					<span class="link_name">SETTING</span>
 				</a>
@@ -131,6 +142,8 @@ function rupiah($angka){
 			<ul class="sub-menu">
 				<li><a class="link_name" href="#">SETTING</a></li>
 				<li><a href="prof.php">AKUN</a></li>
+				<!-- <li><a href="#">Stok</a></li>
+          <li><a href="#">Operator</a></li> -->
 			</ul>
 		</li>
 
@@ -185,7 +198,7 @@ function rupiah($angka){
 	<div class="home-content">
 		<i class='bx bx-menu'></i>
 		<span class="text">Menu</span>
-		<span class="text-right date"><?= date('Y, M d') . '  |  ' . date('H:i');  ?></span>
+		<span class="text-right date"><?= tanggal(date('Y-m-d')) . '  |  ' . date('H:i');  ?></span>
 	</div>
 </header>
 <main class="mains">

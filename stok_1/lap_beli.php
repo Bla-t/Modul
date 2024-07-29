@@ -16,14 +16,14 @@ $m = date('m');
 						<select class="form-control" name="bulan" id="" required>
 							<?php
 							if (isset($_POST['bulan'])) {
-								echo '<option value="' . date('m') . '" selected>' . tanggal(date($_POST['bulan'])) . '</option>';
+								echo '<option value="' . date('m') . '" selected>' . tgln(date($_POST['bulan'])) . '</option>';
 							} else {
-								echo '<option value="' . date('m') . '" selected>' . tanggal(date('m')) . '</option>';
+								echo '<option value="' . date('m') . '" selected>' . tgln(date('m')) . '</option>';
 							}
 							?>
 							<?php
 							for ($bln = 1; $bln <= 12; $bln++) {
-								echo '<option value="' . $bln . '">' . tanggal(date('m', strtotime($a . '-' . $bln))) . '</option></br>';
+								echo '<option value="' . $bln . '">' . tgln(date('m', strtotime($a . '-' . $bln))) . '</option></br>';
 							}
 							?>
 						</select>
@@ -87,13 +87,13 @@ $m = date('m');
     					while ($data = mysqli_fetch_array($isi)) {
 							?>
 							<tr>
-									<td><?= $n++ . '.'; ?></td>
-									<td><a class="text-info" href="info_pembelian.php?id=<?= $data['nota'] ?>"><?= $data['nota']; ?></a></td>
-									<td><?= $data['jumlah']; ?> TRX</td>
-									<td><?= rupiah($data['harga_total']); ?></td>
-									<td><?= $data['keterangan']; ?></td>
-									<td><?= $data['acc']; ?></td>
-									<td><?= date('d M, Y', strtotime($data['tgl'])); ?></td>
+									<td><?php echo $n++ . '.'; ?></td>
+									<td><a class="text-info" href="info_pembelian.php?id=<?php echo $data['nota'] ?>"><?php echo $data['nota']; ?></a></td>
+									<td><?php echo $data['jumlah']; ?> TRX</td>
+									<td><?php echo rupiah($data['harga_total']); ?></td>
+									<td><?php echo $data['keterangan']; ?></td>
+									<td><?php echo $data['acc']; ?></td>
+									<td><?php echo date('d M, Y', strtotime($data['tgl'])); ?></td>
 								</tr>
 							<?php } ?>
 					</tbody>

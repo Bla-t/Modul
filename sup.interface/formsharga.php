@@ -1,6 +1,6 @@
 <?php
 include "nav.php";
-$pilih = mysqli_query($conn, "SELECT * FROM `area_tarif` ORDER BY `nama_daerah`") or die(mysqli_error($conn));
+$pilih = mysqli_query($conn, "SELECT * FROM `cek_dari` ORDER BY `nama`") or die(mysqli_error($conn));
 ?>
 <style>
     th{
@@ -26,7 +26,7 @@ $pilih = mysqli_query($conn, "SELECT * FROM `area_tarif` ORDER BY `nama_daerah`"
           <?php
           }
           while ($cek = mysqli_fetch_array($pilih)) {
-            echo '<option value="' . $cek["kode"] . '">' . $cek["nama_daerah"] . '</option>';
+            echo '<option value="' . $cek["kode"] . '">' . $cek["nama"] . '</option>';
           }
           ?>
         </select>
@@ -61,9 +61,9 @@ $pilih = mysqli_query($conn, "SELECT * FROM `area_tarif` ORDER BY `nama_daerah`"
           $tips = '';
         }
         if (isset($get)) {
-          $tnhtosmt = mysqli_query($conn, "SELECT * FROM `tarif_prod` WHERE `dari` = '$get'") or die(mysqli_error($conn));
+          $tnhtosmt = mysqli_query($conn, "SELECT * FROM `tarif_prod_6r` WHERE `dari` = '$get'") or die(mysqli_error($conn));
           $daera = mysqli_fetch_assoc($pilih);
-          $tiep = mysqli_query($conn, "SELECT * FROM `area_tarif` WHERE `kode` = '$get' ORDER BY `nama_daerah`") or die(mysqli_error($conn));
+          $tiep = mysqli_query($conn, "SELECT * FROM `daerah_tarif` WHERE `kode` = '$get' ORDER BY `nama_daerah`") or die(mysqli_error($conn));
           $daera = mysqli_fetch_assoc($tiep);
           $tips = 'Tarif ' . $daera['nama_daerah'];
         }
@@ -82,9 +82,12 @@ $pilih = mysqli_query($conn, "SELECT * FROM `area_tarif` ORDER BY `nama_daerah`"
               <th class="kolm">Min11-20</th>
               <th class="kolm">Kons11-20</th>
               <th class="kolm">Kg11-20</th>
-              <th class="kolm">Min21-100</th>
-              <th class="kolm">Kons21-100</th>
-              <th class="kolm">Kg21-100</th>
+              <th class="kolm">Min21-50</th>
+              <th class="kolm">Kons21-50</th>
+              <th class="kolm">Kg21-50</th>
+              <th class="kolm">Min51-100</th>
+              <th class="kolm">Kons51-100</th>
+              <th class="kolm">Kg51-100</th>
               <th class="kolm">Min101</th>
               <th class="kolm">Kons101</th>
               <th class="kolm">Kg101</th>
@@ -95,6 +98,7 @@ $pilih = mysqli_query($conn, "SELECT * FROM `area_tarif` ORDER BY `nama_daerah`"
           </thead>
           <tbody id="table">
             <?php
+            if($tips != ''){
             while ($isi = mysqli_fetch_array($tnhtosmt)) {
             ?>
               <tr>
@@ -107,9 +111,12 @@ $pilih = mysqli_query($conn, "SELECT * FROM `area_tarif` ORDER BY `nama_daerah`"
                 <td class="kolm"><input class="form-control form-control-sm" type="text" value="<?= $isi['min11-20'] ?>"></td>
                 <td class="kolm"><input class="form-control form-control-sm" type="text" value="<?= $isi['kons11-20'] ?>"></td>
                 <td class="kolm"><input class="form-control form-control-sm" type="text" value="<?= $isi['kg11-20'] ?>"></td>
-                <td class="kolm"><input class="form-control form-control-sm" type="text" value="<?= $isi['min21-100'] ?>"></td>
-                <td class="kolm"><input class="form-control form-control-sm" type="text" value="<?= $isi['kons21-100'] ?>"></td>
-                <td class="kolm"><input class="form-control form-control-sm" type="text" value="<?= $isi['kg21-100'] ?>"></td>
+                <td class="kolm"><input class="form-control form-control-sm" type="text" value="<?= $isi['min21-50'] ?>"></td>
+                <td class="kolm"><input class="form-control form-control-sm" type="text" value="<?= $isi['kons21-50'] ?>"></td>
+                <td class="kolm"><input class="form-control form-control-sm" type="text" value="<?= $isi['kg21-50'] ?>"></td>
+                <td class="kolm"><input class="form-control form-control-sm" type="text" value="<?= $isi['min51-100'] ?>"></td>
+                <td class="kolm"><input class="form-control form-control-sm" type="text" value="<?= $isi['kons51-100'] ?>"></td>
+                <td class="kolm"><input class="form-control form-control-sm" type="text" value="<?= $isi['kg51-100'] ?>"></td>
                 <td class="kolm"><input class="form-control form-control-sm" type="text" value="<?= $isi['min101'] ?>"></td>
                 <td class="kolm"><input class="form-control form-control-sm" type="text" value="<?= $isi['kons101'] ?>"></td>
                 <td class="kolm"><input class="form-control form-control-sm" type="text" value="<?= $isi['kg101'] ?>"></td>
@@ -121,6 +128,7 @@ $pilih = mysqli_query($conn, "SELECT * FROM `area_tarif` ORDER BY `nama_daerah`"
                 </td>
               </tr>
             <?php
+            }
             }
             ?>
           </tbody>

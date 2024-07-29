@@ -71,7 +71,9 @@ function tgl($tanggal)
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="select2JS/select2.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="select2JS/select2.min.css">
   <link rel="stylesheet" href="sttyle.css">
 </head>
 
@@ -131,15 +133,15 @@ function tgl($tanggal)
           <!-- <li><a href="gol-tunjsop.php">Supir</a></li> -->
         </ul>
       </li>
-      <li>
-        <a href="tarifs.php">
-          <i class='bx bxs-data'></i>
-          <span class="link_name">AREA TARIF</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="tarifs.php">EDIT AREA</a></li>
-        </ul>
-      </li>
+      <!--<li>-->
+      <!--  <a href="tarifs.php">-->
+      <!--    <i class='bx bxs-data'></i>-->
+      <!--    <span class="link_name">AREA TARIF</span>-->
+      <!--  </a>-->
+      <!--  <ul class="sub-menu blank">-->
+      <!--    <li><a class="link_name" href="tarifs.php">EDIT AREA</a></li>-->
+      <!--  </ul>-->
+      <!--</li>-->
       <li>
         <div class="iocn-link">
           <a href="#">
@@ -149,7 +151,8 @@ function tgl($tanggal)
           <i class='bx bxs-chevron-down arrow'></i>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="#"> EDIT TARIF </a></li>
+          <li><a href="tarifs.php">EDIT AREA</a></li>
+          <li><a class="link_name" href="settings_tarif.php"> UPDATE TARIF </a></li>
           <li><a href="formsharga_dev.php">TARIF TES</a></li>
           <li><a href="formsharga.php">TARIF OPR</a></li>
           <!-- <li><a href="gol-tunjsop.php">Supir</a></li> -->

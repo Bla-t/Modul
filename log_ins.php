@@ -1,5 +1,5 @@
 <?php
-// error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
+error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 session_start();
 
 // menghubungkan php dengan koneksi database
@@ -19,62 +19,135 @@ $cek = mysqli_num_rows($login);
 if ($cek > 0) {
 
 	$data = mysqli_fetch_assoc($login);
-		switch ($data['levl']){
-			case "sudo":
-				// buat session login dan username
-				$_SESSION['ID'] = $data['id'];
-				$_SESSION['username'] = $username;
-				$_SESSION['levl'] = "sudo";
-				$_SESSION['nama'] = $data['nama'];
-				$_SESSION['pass'] = $data['password'];
-				$_SESSION['bagian'] = $data['bagian'];
-				$_SESSION['type'] = $data['type'];
-				$_SESSION['gamb'] = $data['gamb'];
-				$_SESSION['cabang'] = $data['cabang'];
-				// alihkan ke halaman dashboard pengurus
-				header("location:sup.interface/");
-				break;
-			// cek jika user login sebagai admin
-			case "admin":
-				// buat session login dan username
-				$_SESSION['ID'] = $data['id'];
-				$_SESSION['username'] = $username;
-				$_SESSION['levl'] = "admin";
-				$_SESSION['nama'] = $data['nama'];
-				$_SESSION['pass'] = $data['password'];
-				$_SESSION['bagian'] = $data['bagian'];
-				$_SESSION['type'] = $data['type'];
-				$_SESSION['gamb'] = $data['gamb'];
-				$_SESSION['cabang'] = $data['cabang'];
-				// alihkan ke halaman dashboard admin
-				header("location:home.php");
-				break;
-			case "operator":
-				if($data['type'] == "leasing"){
-					$location="home.php";
-				} else if($data['type'] == "stok"){
-					$location="stok_1/";
-				} else if ($data['type'] == "gaji") {
-					$location="gaji/";
-				}
-				// buat session login dan username
-				$_SESSION['ID'] = $data['id'];
-				$_SESSION['username'] = $username;
-				$_SESSION['levl'] = "operator";
-				$_SESSION['nama'] = $data['nama'];
-				$_SESSION['pass'] = $data['password'];
-				$_SESSION['bagian'] = $data['bagian'];
-				$_SESSION['type'] = $data['type'];
-				$_SESSION['gamb'] = $data['gamb'];
-				$_SESSION['cabang'] = $data['cabang'];
-				// alihkan ke halaman dashboard pegawai
-				header("location:$location");
-				break;
-			// alihkan ke halaman login kembali
-			default:
-				header('location:index.php?pesan=gagal&cekid='.$data['levl']);
-			break;
+
+	// cek jika user login sebagai admin
+	if ($data['levl'] == "admin") {
+
+		// buat session login dan username
+		$_SESSION['ID'] = $data['id'];
+		$_SESSION['username'] = $username;
+		$_SESSION['levl'] = "admin";
+		$_SESSION['nama'] = $data['nama'];
+		$_SESSION['pass'] = $data['password'];
+		$_SESSION['bagian'] = $data['bagian'];
+		$_SESSION['type'] = $data['type'];
+		$_SESSION['gamb'] = $data['gamb'];
+		$_SESSION['cabang'] = $data['cabang'];
+		// alihkan ke halaman dashboard admin
+		header("location:home.php");
+
+		// cek jika user login sebagai pegawai
+	} else if ($data['levl'] == "operator" && $data['type'] == "leasing") {
+		// buat session login dan username
+		$_SESSION['ID'] = $data['id'];
+		$_SESSION['username'] = $username;
+		$_SESSION['levl'] = "operator";
+		$_SESSION['nama'] = $data['nama'];
+		$_SESSION['pass'] = $data['password'];
+		$_SESSION['bagian'] = $data['bagian'];
+		$_SESSION['type'] = $data['type'];
+		$_SESSION['gamb'] = $data['gamb'];
+		$_SESSION['cabang'] = $data['cabang'];
+		// alihkan ke halaman dashboard pegawai
+		header("location:home.php");
+
+		// cek jika user login sebagai pegawai
+	} else if ($data['levl'] == "operator" && $data['type'] == "stok") {
+		// buat session login dan username
+		$_SESSION['ID'] = $data['id'];
+		$_SESSION['username'] = $username;
+		$_SESSION['levl'] = "operator";
+		$_SESSION['nama'] = $data['nama'];
+		$_SESSION['pass'] = $data['password'];
+		$_SESSION['bagian'] = $data['bagian'];
+		$_SESSION['type'] = $data['type'];
+		$_SESSION['gamb'] = $data['gamb'];
+		$_SESSION['cabang'] = $data['cabang'];
+		// alihkan ke halaman dashboard pegawai
+		header("location:stok_1");
+		// cek jika user login sebagai pengurus
+	} else if ($data['levl'] == "operator" && $data['type'] == "stok") {
+		// buat session login dan username
+		$_SESSION['ID'] = $data['id'];
+		$_SESSION['username'] = $username;
+		$_SESSION['levl'] = "operator";
+		$_SESSION['nama'] = $data['nama'];
+		$_SESSION['pass'] = $data['password'];
+		$_SESSION['bagian'] = $data['bagian'];
+		$_SESSION['type'] = $data['type'];
+		$_SESSION['gamb'] = $data['gamb'];
+		$_SESSION['cabang'] = $data['cabang'];
+		// alihkan ke halaman dashboard pegawai
+		header("location:stok_1");
+		// cek jika user login sebagai pengurus
+	} else if ($data['levl'] == "operator" && $data['type'] == "gaji") {
+		// buat session login dan username
+		$_SESSION['ID'] = $data['id'];
+		$_SESSION['username'] = $username;
+		$_SESSION['levl'] = "operator";
+		$_SESSION['nama'] = $data['nama'];
+		$_SESSION['pass'] = $data['password'];
+		$_SESSION['bagian'] = $data['bagian'];
+		$_SESSION['type'] = $data['type'];
+		$_SESSION['gamb'] = $data['gamb'];
+		$_SESSION['cabang'] = $data['cabang'];
+		// alihkan ke halaman dashboard pegawai
+		header("location:gaji");
+	} else if ($data['levl'] == "visitor" && $data['type'] == "stok") {
+		// buat session login dan username
+		$_SESSION['ID'] = $data['id'];
+		$_SESSION['username'] = $username;
+		$_SESSION['levl'] = "visitor";
+		$_SESSION['nama'] = $data['nama'];
+		$_SESSION['pass'] = $data['password'];
+		$_SESSION['bagian'] = $data['bagian'];
+		$_SESSION['type'] = $data['type'];
+		$_SESSION['gamb'] = $data['gamb'];
+		$_SESSION['cabang'] = $data['cabang'];
+		// alihkan ke halaman dashboard pengurus
+		header("location:stok_1");
+	} else if ($data['levl'] == "visitor" && $data['type'] == "leasing") {
+		// buat session login dan username
+		$_SESSION['ID'] = $data['id'];
+		$_SESSION['username'] = $username;
+		$_SESSION['levl'] = "visitor";
+		$_SESSION['nama'] = $data['nama'];
+		$_SESSION['pass'] = $data['password'];
+		$_SESSION['bagian'] = $data['bagian'];
+		$_SESSION['type'] = $data['type'];
+		$_SESSION['gamb'] = $data['gamb'];
+		$_SESSION['cabang'] = $data['cabang'];
+		// alihkan ke halaman dashboard pengurus
+		header("location:home.php");
+	} else if ($data['levl'] == "sudo") {
+		// buat session login dan username
+		$_SESSION['ID'] = $data['id'];
+		$_SESSION['username'] = $username;
+		$_SESSION['levl'] = "sudo";
+		$_SESSION['nama'] = $data['nama'];
+		$_SESSION['pass'] = $data['password'];
+		$_SESSION['bagian'] = $data['bagian'];
+		$_SESSION['type'] = $data['type'];
+		$_SESSION['gamb'] = $data['gamb'];
+		$_SESSION['cabang'] = $data['cabang'];
+		// alihkan ke halaman dashboard pengurus
+		header("location:sup.interface/");
+	} else if ($data['levl'] == "pengawas") {
+		// buat session login dan username
+		$_SESSION['ID'] = $data['id'];
+		$_SESSION['username'] = $username;
+		$_SESSION['levl'] = "sudo";
+		$_SESSION['nama'] = $data['nama'];
+		$_SESSION['pass'] = $data['password'];
+		$_SESSION['gamb'] = $data['gamb'];
+		$_SESSION['cabang'] = $data['cabang'];
+		// alihkan ke halaman dashboard pengurus
+		header("location:home.php");
+	} else {
+
+		// alihkan ke halaman login kembali
+		header("location:index.php?pesan=gagal");
 	}
 } else {
-	header("location:index.php?pesan=gagal&cekid=$cek");
+	header("location:index.php?pesan=gagal");
 }

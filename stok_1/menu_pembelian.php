@@ -9,42 +9,51 @@ include 'header.php';
 				<div class="col-md-8">
 					<div class="form-row">
 						<?php
-						$not = 'NP-' . $milik . date('ymd');
-						$query = "SELECT max(nota) AS last FROM `stok_lapbeli` WHERE `nota` LIKE '$not%' AND `status` NOT LIKE 'BELUM'";
-						$hasil = mysqli_query($conn, $query);
-						$data  = mysqli_fetch_array($hasil);
-						$lastNoTransaksi = strval($data['last']);
-
-						// baca nomor urut transaksi dari id transaksi terakhir
-
-						if ($milik == "GA") {
-							$lastNoUrut = substr($lastNoTransaksi, 13, 4);
-						} else if ($milik == "ARM") {
-							$lastNoUrut = substr($lastNoTransaksi, 14, 4);
-						}
-
-						// nomor urut ditambah 1
-						$nextNoUrut = intval($lastNoUrut) + 1;
-
-						// membuat format nomor transaksi berikutnya
-						$next = sprintf('%04s', $nextNoUrut);
-						//nota database
-						$nextNoTransaksi = $not . sprintf('-' . '%04s', $nextNoUrut);
+    						$not = 'NP-' . $milik . date('ymd');
+    				// 		$not = 'NP-' . $milik . '240420';
+    						$query = "SELECT max(nota) AS last FROM `stok_lapbeli` WHERE `nota` LIKE '$not%' AND `status` NOT LIKE 'BELUM'";
+    						$hasil = mysqli_query($conn, $query)or die(mysqli_error($conn));
+    						$data  = mysqli_fetch_assoc($hasil);
+    						$count_notabeli = mysqli_num_rows($hasil);
+    						
+    						($data['last'] > 0) ? $lastNoTransaksi = $data['last'] : $lastNoTransaksi = $not.'-0000';
+    						
+    				// 		var_dump($count_notbeli);
+    
+    						// baca nomor urut transaksi dari id transaksi terakhir
+    
+    						if ($milik == "GA") {
+    							$lastNoUrut = substr($lastNoTransaksi, 13, 4);
+    				// 			var_dump($lastNoUrut);
+    				// 			echo $milik;
+    						} else if ($milik == "ARM") {
+    							$lastNoUrut = substr($lastNoTransaksi, 14, 4);
+    							var_dump($lastNoUrut);
+    						}
+    
+    						// nomor urut ditambah 1
+    						$nextNoUrut = $lastNoUrut + 1;
+    
+    						// membuat format nomor transaksi berikutnya
+    						$next = sprintf('%04s', $nextNoUrut);
+    						
+    						//nota database
+    						$nextNoTransaksi = $not . sprintf('-' . '%04s', $nextNoUrut);
 						?>
 						<div class="col">
-							<label for="nota">No nota:</label>
+							<label for="nota">No nota :</label>
 							<input type="hidden" name="nota" value="<?php echo $nextNoTransaksi ?>">
 							<input id="nota" class="form-control" type="number" name="" value="<?php echo $next; ?>" readonly>
 						</div>
 						<div class="col">
-							<label for="tgl"> Tgl. nota</label>
+							<label for="tgl"> Tgl. nota :</label>
 							<input id="tgl" class="form-control" type="text" name="tglnota" value="<?php echo date('Y-d-m'); ?>" readonly>
 						</div>
 					</div>
-					<div class="row">
+					<div class="form-row">
 						<div class="col">
-							<label for="car">Barcode/SKU :</label>
-							<div class="form-inline mb-3">
+							<label for="form_sku">Barcode/SKU :</label>
+							<div class="form-inline mb-3" id="form-sku">
 								<select class="form-control selectpicker border mr-1" data-live-search="true" id="car" name="SKU" required>
 									<?php if (isset($_POST['SKU'])) {
 										echo '<option selected>' . $_POST['SKU'] . '</option>';
@@ -68,8 +77,10 @@ include 'header.php';
 						<?php
 						$harga_nota = mysqli_query($conn, "SELECT SUM(total) AS 'totalnota' FROM `stok_isibeli` WHERE `nota` = '$nextNoTransaksi'") or die(mysqli_error($conn));
 						$tot_nota = mysqli_fetch_assoc($harga_nota);
+						(empty($tot_nota['totalnota'])) ? $total_pembelian =  0 : $total_pembelian = $tot_nota['totalnota'];
+
 						?>
-						<h3 class="text-center " style="font-size: 1.6rem;"><?=(empty($tot_nota['totalnota'])) ? rupiah(0) : rupiah($tot_nota['totalnota']); ?></h3>
+						<h3 class="text-center " style="font-size: 1.6rem;"><?= rupiah($total_pembelian); ?></h3>
 						<input type="hidden" name="total_nota" value="<?php echo $tot_nota['totalnota']; ?>">
 					</div>
 				</div>
@@ -80,8 +91,8 @@ include 'header.php';
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$("#cont, #rego").keyup(function() {
-					var harga = $("#rego").val();
-					var jumlah = $("#cont").val();
+					const harga = $("#rego").val();
+					const jumlah = $("#cont").val();
 
 					var total = parseInt(harga) * parseInt(jumlah);
 					$("#total").val(total);
